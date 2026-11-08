@@ -1,0 +1,9 @@
+$kind: collection
+name: Student Performance Predictor
+description: |-
+  API collection for the Student Performance Predictor MLOps service.
+
+  This FastAPI app predicts a student's exam score based on study habits,
+  attendance, sleep, previous scores, and other factors.
+
+  Use the `Student Performance - Dev` environment to set {{base_url}}.

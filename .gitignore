@@ -3,3 +3,7 @@ __pycache__/
 *.pyc
 mlruns/
 .DS_Store
+# Runtime files
+prediction_logs.csv
+mlflow.db
+.pytest_cache/
