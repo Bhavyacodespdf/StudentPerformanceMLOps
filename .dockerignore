@@ -1,0 +1,11 @@
+
+venv/
+__pycache__/
+*.pyc
+.git/
+.github/
+.pytest_cache/
+mlruns/
+mlflow.db
+prediction_logs.csv
+.DS_Store
