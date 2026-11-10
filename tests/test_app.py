@@ -42,8 +42,14 @@ def test_prediction():
     response = client.post("/predict", json=payload)
 
     assert response.status_code == 200
-    assert "predicted_exam_score" in response.json()
-    assert "tip" in response.json()
+    body = response.json()
+    assert "predicted_exam_score" in body
+    assert "tip" in body
+    assert "explanations" in body
+    assert isinstance(body["explanations"], list)
+    assert len(body["explanations"]) > 0
+    assert "feature" in body["explanations"][0]
+    assert "contribution" in body["explanations"][0]
 
 
 def test_invalid_prediction():

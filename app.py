@@ -1,3 +1,4 @@
+import numpy as np
 import joblib
 import pandas as pd
 import csv
@@ -44,10 +45,10 @@ def health():
 
 @app.get("/", response_class=HTMLResponse)
 def home():
-    return """
-    <h1>Student Performance Predictor</h1>
-    <p>API is running. Use <a href='/docs'>API documentation</a> to make predictions.</p>
-    """
+    path = Path("static/index.html")
+    if path.exists():
+        return path.read_text()
+    return "<h1>Student Performance Predictor</h1><p>Use <a href='/docs'>API documentation</a>.</p>"
 
 
 @app.post("/predict")
@@ -56,6 +57,32 @@ def predict(student: StudentInput):
     input_df = pd.DataFrame([data])
 
     prediction = float(model.predict(input_df)[0])
+    
+    
+    preprocessor = model.named_steps["preprocessor"]
+    regressor = model.named_steps["model"]
+    
+    transformed_input = preprocessor.transform(input_df)
+    feature_names = preprocessor.get_feature_names_out()
+    coefficients = regressor.coef_
+    
+    contributions = transformed_input[0] * coefficients
+    
+    explanations = [
+      {
+        "feature": str(feature_names[i]).split("__")[-1],
+        "contribution": round(float(contributions[i]), 3)
+      }
+      for i in range(len(feature_names))
+    ]
+    
+    explanations.sort(
+      key=lambda x: abs(x["contribution"]),
+      reverse=True
+    )
+    
+    explanations = explanations[:8]
+    
 
     file_exists = Path(LOG_PATH).exists()
 
@@ -75,6 +102,7 @@ def predict(student: StudentInput):
         tip = "Consider seeking academic support and improving study habits."
 
     return {
-        "predicted_exam_score": round(prediction, 2),
-        "tip": tip
+    "predicted_exam_score": round(prediction, 2),
+    "tip": tip,
+    "explanations": explanations
     }

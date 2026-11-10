@@ -11,85 +11,71 @@
   :root {
     --bg: #0B0D10; --card: #14171C; --border: #23272F;
     --text: #E6E8EB; --muted: #A3AAB5; --muted-2: #8A919C;
-    --accent: #7C8CFF; --accent-tint: rgba(124, 140, 255, 0.12);
+    --accent: #7C8CFF; --accent-tint: rgba(124,140,255,0.12);
     --ok: #3FB950; --bad: #F06A6A; --idle: #6B7280;
     --r-card: 12px; --r-ctl: 10px;
   }
   * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
-  body {
-    margin: 0; background: var(--bg); color: var(--text);
-    font: 15px/1.55 Inter, system-ui, sans-serif;
-  }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.55 Inter, system-ui, sans-serif; }
   h1, h2, h3, .brand { font-family: "Space Grotesk", Inter, sans-serif; letter-spacing: -0.01em; }
   a { color: var(--text); }
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   .wrap { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
 
-  /* Top bar */
-  header.top { border-bottom: 1px solid var(--border); }
-  header.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
-  .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 16px; }
-  .logo { width: 28px; height: 28px; border-radius: 8px; border: 1px solid var(--border); display: grid; place-items: center; }
-  .top-right { display: flex; align-items: center; gap: 12px; }
-  .pill {
-    display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px;
-    border: 1px solid var(--border); border-radius: 999px; font-size: 13px; color: var(--muted);
-  }
-  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--idle); }
+  /* ── Top bar ─────────────────────────────────────── */
+  header.top { border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; background: rgba(11,13,16,0.92); backdrop-filter: blur(8px); }
+  header.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 15px; white-space: nowrap; text-decoration: none; }
+  .logo { width: 28px; height: 28px; border-radius: 8px; border: 1px solid var(--border); display: grid; place-items: center; flex-shrink: 0; }
+  .top-nav { display: flex; gap: 2px; }
+  .top-nav a { color: var(--muted); text-decoration: none; font-size: 13px; padding: 5px 11px; border-radius: 8px; white-space: nowrap; }
+  .top-nav a:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+  .top-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+  .pill { display: inline-flex; align-items: center; gap: 7px; height: 30px; padding: 0 11px; border: 1px solid var(--border); border-radius: 999px; font-size: 12.5px; color: var(--muted); white-space: nowrap; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--idle); flex-shrink: 0; }
   .pill[data-state="ok"] .dot { background: var(--ok); }
   .pill[data-state="bad"] .dot { background: var(--bad); }
-  .gh {
-    display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 40px; padding: 0 12px;
-    border-radius: var(--r-ctl); color: var(--muted); text-decoration: none; font-size: 13px;
-  }
+  .gh { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 11px; border-radius: var(--r-ctl); color: var(--muted); text-decoration: none; font-size: 13px; }
   .gh:hover { color: var(--text); background: var(--card); }
 
-  /* Hero */
-  .hero { padding: 56px 0 32px; }
-  .hero h1 { margin: 0 0 8px; font-size: clamp(28px, 4vw, 38px); font-weight: 600; }
-  .hero p { margin: 0; color: var(--muted); }
+  /* ── Hero ────────────────────────────────────────── */
+  .hero { padding: 52px 0 32px; }
+  .hero h1 { margin: 0 0 10px; font-size: clamp(24px, 3.2vw, 34px); font-weight: 600; }
+  .hero p { margin: 0; color: var(--muted); max-width: 580px; line-height: 1.6; }
 
-  /* Layout */
-  .layout { display: grid; grid-template-columns: minmax(0, 65fr) minmax(0, 35fr); gap: 24px; align-items: start; padding-bottom: 64px; }
+  /* ── Layout ──────────────────────────────────────── */
+  .layout { display: grid; grid-template-columns: minmax(0,65fr) minmax(0,35fr); gap: 24px; align-items: start; }
   @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
   .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r-card); padding: 24px; }
   form .card + .card { margin-top: 16px; }
-  .card h2 { margin: 0 0 20px; font-size: 16px; font-weight: 600; }
+  .card > h2 { margin: 0 0 20px; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 9px; }
+  .sec-badge { width: 22px; height: 22px; border-radius: 6px; background: var(--accent-tint); border: 1px solid rgba(124,140,255,0.22); font-size: 11px; color: var(--accent); display: grid; place-items: center; font-family: Inter, sans-serif; font-weight: 600; flex-shrink: 0; }
   .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 24px; }
   @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
 
-  /* Fields */
+  /* ── Fields ──────────────────────────────────────── */
   .field { min-width: 0; border: 0; margin: 0; padding: 0; }
   .field > label, .field > legend { display: block; padding: 0; margin-bottom: 8px; font-size: 13px; font-weight: 500; color: var(--muted); }
   .unit { color: var(--muted-2); font-weight: 400; }
   .num-row { display: flex; align-items: center; gap: 12px; }
-  input[type="range"] { flex: 1; min-width: 0; height: 40px; accent-color: var(--accent); background: transparent; margin: 0; }
-  input[type="number"], select {
-    height: 40px; border-radius: var(--r-ctl); border: 1px solid var(--border);
-    background: var(--bg); color: var(--text); font: inherit; padding: 0 10px;
-  }
+  input[type="range"] { flex: 1; min-width: 0; height: 40px; accent-color: var(--accent); background: transparent; margin: 0; cursor: pointer; }
+  input[type="number"], select { height: 40px; border-radius: var(--r-ctl); border: 1px solid var(--border); background: var(--bg); color: var(--text); font: inherit; padding: 0 10px; }
   input[type="number"] { width: 72px; text-align: right; font-variant-numeric: tabular-nums; }
   select { width: 100%; appearance: none; padding-right: 32px; cursor: pointer;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23A3AAB5' stroke-width='1.5'%3E%3Cpath d='M3 4.5l3 3 3-3'/%3E%3C/svg%3E");
     background-repeat: no-repeat; background-position: right 12px center; }
   .seg { display: flex; gap: 4px; padding: 4px; border: 1px solid var(--border); border-radius: var(--r-ctl); background: var(--bg); }
-  .seg button {
-    flex: 1; min-height: 40px; border: 1px solid transparent; border-radius: 7px; background: transparent;
-    color: var(--muted); font: inherit; font-size: 14px; cursor: pointer; padding: 0 8px;
-  }
+  .seg button { flex: 1; min-height: 36px; border: 1px solid transparent; border-radius: 7px; background: transparent; color: var(--muted); font: inherit; font-size: 13px; cursor: pointer; padding: 0 6px; white-space: nowrap; }
   .seg button:hover { color: var(--text); }
   .seg button[aria-pressed="true"] { background: var(--accent-tint); border-color: var(--accent); color: var(--text); }
   .field.invalid input[type="number"], .field.invalid select, .field.invalid .seg { border-color: var(--bad); }
-  .err { margin: 6px 0 0; font-size: 12.5px; color: var(--bad); min-height: 0; }
+  .err { margin: 6px 0 0; font-size: 12.5px; color: var(--bad); }
   .err:empty { display: none; }
 
-  /* Actions */
+  /* ── Actions ─────────────────────────────────────── */
   .actions { display: flex; gap: 12px; margin-top: 20px; }
-  .btn {
-    height: 44px; border-radius: var(--r-ctl); font: inherit; font-weight: 500; cursor: pointer;
-    display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 0 20px;
-  }
+  .btn { height: 44px; border-radius: var(--r-ctl); font: inherit; font-weight: 500; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 0 20px; }
   .btn-primary { flex: 1; background: var(--accent); color: #0B0D10; border: 1px solid var(--accent); }
   .btn-primary:hover:not(:disabled) { background: #8E9BFF; }
   .btn-primary:disabled { opacity: 0.7; cursor: progress; }
@@ -97,47 +83,134 @@
   .btn-ghost:hover { background: var(--card); }
   .spinner { width: 16px; height: 16px; border-radius: 50%; border: 2px solid rgba(11,13,16,0.3); border-top-color: #0B0D10; animation: spin 0.7s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
-  .form-error {
-    margin-top: 16px; padding: 12px 14px; border-radius: var(--r-ctl); border: 1px solid rgba(240,106,106,0.4);
-    background: rgba(240,106,106,0.08); color: #F3A3A3; font-size: 14px; white-space: pre-line;
-  }
+  .form-error { margin-top: 16px; padding: 12px 14px; border-radius: var(--r-ctl); border: 1px solid rgba(240,106,106,0.4); background: rgba(240,106,106,0.08); color: #F3A3A3; font-size: 14px; white-space: pre-line; }
 
-  /* Result */
-  .result { position: sticky; top: 24px; text-align: center; }
-  .result h2 { text-align: left; }
-  .ring-wrap { position: relative; width: 200px; height: 200px; margin: 8px auto 16px; }
+  /* ── Result panel ────────────────────────────────── */
+  .result { position: sticky; top: 84px; }
+  .result > h2 { margin: 0 0 20px; font-size: 15px; font-weight: 600; }
+  .ring-wrap { position: relative; width: 180px; height: 180px; margin: 0 auto 16px; }
   .ring-wrap svg { width: 100%; height: 100%; transform: rotate(-90deg); }
   .ring-track { stroke: var(--border); }
   .ring-fill { stroke: var(--accent); stroke-linecap: round; transition: stroke-dashoffset 0.9s cubic-bezier(.2,.7,.2,1); }
-  .ring-center { position: absolute; inset: 0; display: grid; place-content: center; }
-  .score { font-family: "Space Grotesk", sans-serif; font-size: 44px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; }
-  .out-of { margin-top: 6px; font-size: 13px; color: var(--muted-2); }
-  .result.empty .ring-wrap { opacity: 0.45; }
-  .band { display: inline-block; font-size: 13px; color: var(--muted); border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px; }
-  .empty-text { color: var(--muted); margin: 0; }
-  .rec { margin-top: 20px; text-align: left; border: 1px solid var(--border); border-radius: var(--r-ctl); padding: 14px 16px; background: var(--bg); }
-  .rec h3 { margin: 0 0 6px; font-size: 13px; font-weight: 500; color: var(--muted); }
-  .rec p { margin: 0; }
-  .footnote { margin: 20px 0 0; font-size: 12.5px; color: var(--muted-2); text-align: left; }
+  .ring-center { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; }
+  .score { font-family: "Space Grotesk", sans-serif; font-size: 42px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; }
+  .out-of { margin-top: 4px; font-size: 12px; color: var(--muted-2); }
+  .result.empty .ring-wrap { opacity: 0.35; }
+  .result-center { text-align: center; }
+  .band { display: inline-block; font-size: 13px; color: var(--muted); border: 1px solid var(--border); border-radius: 999px; padding: 3px 12px; }
+  .empty-hint { color: var(--muted); margin: 0 0 12px; font-size: 14px; }
+  .rec { margin-top: 16px; border: 1px solid var(--border); border-radius: var(--r-ctl); padding: 12px 14px; background: var(--bg); }
+  .rec h3 { margin: 0 0 4px; font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  .rec p { margin: 0; font-size: 14px; }
+  .footnote { margin: 16px 0 0; font-size: 12px; color: var(--muted-2); line-height: 1.5; }
+
+  /* ── XAI section ─────────────────────────────────── */
+  .xai-section { margin-top: 24px; }
+  .xai-section > h2 { margin: 0 0 4px; font-size: 16px; font-weight: 600; }
+  .xai-desc { margin: 0 0 20px; font-size: 13px; color: var(--muted); line-height: 1.55; }
+  .xai-desc strong { color: var(--ok); font-weight: 500; }
+  .xai-desc em { color: var(--bad); font-style: normal; font-weight: 500; }
+  .xai-row { display: grid; grid-template-columns: 160px 1fr 64px; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .xai-row:last-child { border-bottom: 0; }
+  .xai-label { font-size: 13px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .xai-bar-wrap { height: 8px; background: rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden; }
+  .xai-bar { height: 100%; border-radius: 4px; transition: width 0.6s cubic-bezier(.2,.7,.2,1); min-width: 2px; }
+  .bar-pos { background: var(--ok); }
+  .bar-neg { background: var(--bad); }
+  .xai-val { font-size: 12.5px; font-variant-numeric: tabular-nums; text-align: right; font-weight: 500; }
+  .xai-val.bar-pos { color: var(--ok); }
+  .xai-val.bar-neg { color: var(--bad); }
+  .xai-legend { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); }
+  .xai-legend span { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--muted); }
+  .leg-swatch { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+  @media (max-width: 600px) {
+    /* Clamp scroll width at source: html+body must both be hidden so the
+       CSS overflow-propagation rule (body→html) doesn't silently flip them */
+    html, body { max-width: 100%; overflow-x: hidden; }
+
+    /* Header: flex items with white-space:nowrap overflow ~530px at 393px.
+       Clip at the header border so the scroll width never exceeds the viewport. */
+    header.top { overflow: hidden; }
+    /* Allow brand to shrink and truncate rather than push the header wider */
+    .brand { min-width: 0; overflow: hidden; }
+    .brand span:last-child { overflow: hidden; text-overflow: ellipsis; }
+    /* Hide nav links — they're duplicate scrolling shortcuts, still reachable by scroll */
+    .top-nav { display: none; }
+
+    /* Wrap: explicit width + tighter padding */
+    .wrap { width: 100%; padding: 0 14px; }
+
+    /* All cards: fill column, never overflow */
+    .card { width: 100%; min-width: 0; padding: 16px; }
+
+    /* Explicit single-column layout */
+    .layout { grid-template-columns: 1fr; gap: 16px; }
+
+    /* Result: position:sticky has a width bug in mobile WebKit grid items */
+    .result { position: static; width: 100%; }
+
+    /* XAI: two-line layout — label on row 1, bar on row 2, value spans both */
+    .xai-row {
+      grid-template-columns: 1fr 52px;
+      grid-template-rows: auto auto;
+      gap: 4px 8px;
+    }
+    .xai-label {
+      white-space: normal;
+      overflow: visible;
+      text-overflow: clip;
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .xai-bar-wrap {
+      grid-column: 1;
+      grid-row: 2;
+    }
+    .xai-val {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      align-self: center;
+    }
+
+    /* Model info: single column */
+    .model-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── Model info section ──────────────────────────── */
+  .model-section { margin-top: 48px; padding-bottom: 72px; }
+  .model-section > h2 { margin: 0 0 16px; font-size: 16px; font-weight: 600; }
+  .model-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+  .model-item { background: var(--card); border: 1px solid var(--border); border-radius: var(--r-card); padding: 16px 18px; }
+  .model-item h3 { margin: 0 0 5px; font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  .model-item p { margin: 0 0 8px; font-size: 14px; }
+  .badge { display: inline-block; font-size: 11.5px; padding: 2px 9px; border-radius: 999px; background: var(--accent-tint); border: 1px solid rgba(124,140,255,0.22); color: var(--accent); font-weight: 500; }
 
   footer { border-top: 1px solid var(--border); padding: 24px 0; color: var(--muted-2); font-size: 13px; }
   [hidden] { display: none !important; }
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  @media (prefers-reduced-motion: reduce) { .ring-fill, .spinner { transition: none; animation-duration: 2s; } }
+  @media (prefers-reduced-motion: reduce) { .ring-fill, .spinner, .xai-bar { transition: none; animation-duration: 2s; } }
 </style>
 </head>
 <body>
+
 <header class="top">
   <div class="wrap">
-    <div class="brand">
+    <a class="brand" href="#prediction">
       <span class="logo" aria-hidden="true">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#7C8CFF" stroke-width="1.6"><path d="M2 12l4-4 3 3 5-6"/></svg>
       </span>
       Student Performance Predictor
-    </div>
+    </a>
+    <nav class="top-nav" aria-label="Primary navigation">
+      <a href="#prediction">Prediction</a>
+      <a href="#model">Model</a>
+    </nav>
     <div class="top-right">
-      <span class="pill" id="status" data-state="idle" role="status"><span class="dot" aria-hidden="true"></span><span id="status-text">Checking…</span></span>
-      <a class="gh" href="https://github.com/Bhavyacodespdf/StudentPerformanceMLOps" target="_blank" rel="noopener">
+      <span class="pill" id="status" data-state="idle" role="status" aria-live="polite">
+        <span class="dot" aria-hidden="true"></span>
+        <span id="status-text">Checking…</span>
+      </span>
+      <a class="gh" href="https://github.com/Bhavyacodespdf/StudentPerformanceMLOps" target="_blank" rel="noopener" aria-label="View source on GitHub">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
         GitHub
       </a>
@@ -146,24 +219,27 @@
 </header>
 
 <main class="wrap">
-  <section class="hero">
+  <section class="hero" id="prediction">
     <h1>Predict a student's exam score</h1>
-    <p>Enter study habits and background factors to get an estimated score from the trained model.</p>
+    <p>Enter academic, lifestyle, and background factors to get a data-driven score estimate — with a feature-level explanation of which inputs drove the result.</p>
   </section>
 
   <div class="layout">
+    <!-- ── Form ── -->
     <form id="form" novalidate>
       <div id="cards"></div>
       <div class="actions">
         <button type="submit" class="btn btn-primary" id="submit">
-          <span class="spinner" id="spinner" hidden></span><span id="submit-text">Predict score</span>
+          <span class="spinner" id="spinner" hidden aria-hidden="true"></span>
+          <span id="submit-text">Predict score</span>
         </button>
         <button type="button" class="btn btn-ghost" id="reset">Reset</button>
       </div>
       <div class="form-error" id="form-error" role="alert" hidden></div>
     </form>
 
-    <aside class="card result empty" id="result" aria-live="polite">
+    <!-- ── Result panel ── -->
+    <aside class="card result empty" id="result" aria-live="polite" aria-label="Prediction result">
       <h2>Predicted score</h2>
       <div class="ring-wrap">
         <svg viewBox="0 0 120 120" aria-hidden="true">
@@ -171,19 +247,67 @@
           <circle class="ring-fill" id="ring" cx="60" cy="60" r="52" fill="none" stroke-width="8"/>
         </svg>
         <div class="ring-center">
-          <div class="score" id="score">–</div>
-          <div class="out-of">/ 100</div>
+          <div class="score" id="score" aria-label="Score">–</div>
+          <div class="out-of" aria-hidden="true">/ 100</div>
         </div>
       </div>
-      <p class="empty-text" id="empty-text">Fill the form and hit Predict</p>
-      <span class="band" id="band" hidden></span>
+      <div class="result-center">
+        <p class="empty-hint" id="empty-hint">Fill the form and hit Predict</p>
+        <span class="band" id="band" hidden></span>
+      </div>
       <div class="rec" id="rec" hidden>
         <h3>Recommendation</h3>
         <p id="tip"></p>
       </div>
-      <p class="footnote">This is an estimate from a regression model, not a guaranteed exam result.</p>
+      <p class="footnote">Estimate from a linear regression model, not a guaranteed exam result.</p>
     </aside>
   </div>
+
+  <!-- ── XAI section (shown after prediction) ── -->
+  <section class="card xai-section" id="xai" hidden aria-live="polite" aria-label="Prediction explanation">
+    <h2>Why this prediction?</h2>
+    <p class="xai-desc">
+      Top features from this prediction, ranked by impact. Each bar shows <strong>coefficient × transformed input</strong> from the Linear Regression model.
+      <strong>Green</strong> bars pushed the score higher; <em>red</em> bars pulled it lower.
+    </p>
+    <div id="xai-bars"></div>
+    <div class="xai-legend">
+      <span><span class="leg-swatch" style="background:var(--ok)"></span> Positive contribution — raises predicted score</span>
+      <span><span class="leg-swatch" style="background:var(--bad)"></span> Negative contribution — lowers predicted score</span>
+    </div>
+  </section>
+
+  <!-- ── Model information ── -->
+  <section class="model-section" id="model">
+    <h2>Model information</h2>
+    <div class="model-grid">
+      <div class="model-item">
+        <h3>Algorithm</h3>
+        <p>Linear Regression</p>
+        <span class="badge">scikit-learn</span>
+      </div>
+      <div class="model-item">
+        <h3>Pipeline</h3>
+        <p>ColumnTransformer → LinearRegression</p>
+        <span class="badge">40 transformed features</span>
+      </div>
+      <div class="model-item">
+        <h3>Experiment tracking</h3>
+        <p>MLflow</p>
+        <span class="badge">Logged runs</span>
+      </div>
+      <div class="model-item">
+        <h3>Monitoring</h3>
+        <p>Data drift detection on prediction logs</p>
+        <span class="badge">Active</span>
+      </div>
+      <div class="model-item">
+        <h3>Deployment</h3>
+        <p>FastAPI · Docker · Render</p>
+        <span class="badge">CI/CD via GitHub Actions</span>
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer>
@@ -191,7 +315,7 @@
 </footer>
 
 <script>
-// Score bands. Dataset Exam_Score: median 67, most students between ~61 and ~73.
+// Score bands: dataset Exam_Score median ~67, range ~61–73.
 const BANDS = [
   { min: 71, label: "Above average" },
   { min: 63, label: "Average" },
@@ -199,68 +323,82 @@ const BANDS = [
 ];
 
 const LMH = ["Low", "Medium", "High"];
-const YN = ["Yes", "No"];
-// Keys and option strings match StudentInput in app.py and the CSV values exactly.
-// Hours_Studied max is 24 (backend: le=24), though the dataset goes to 44.
+const YN  = ["Yes", "No"];
+
+// API keys and option values match StudentInput in app.py exactly.
 const CARDS = [
-  { title: "Study habits", fields: [
-    { key: "Hours_Studied", label: "Hours studied", unit: "hrs/week", min: 1, max: 24, def: 20 },
-    { key: "Attendance", label: "Attendance", unit: "%", min: 60, max: 100, def: 80 },
-    { key: "Previous_Scores", label: "Previous scores", min: 50, max: 100, def: 75 },
-    { key: "Tutoring_Sessions", label: "Tutoring sessions", unit: "/month", min: 0, max: 8, def: 1 },
-    { key: "Sleep_Hours", label: "Sleep", unit: "hrs/night", min: 4, max: 10, def: 7 },
-    { key: "Physical_Activity", label: "Physical activity", unit: "hrs/week", min: 0, max: 6, def: 3 },
+  { title: "Academic Performance", num: "A", fields: [
+    { key: "Hours_Studied",    label: "Hours studied",      unit: "hrs/week",  min: 1,  max: 24, def: 20 },
+    { key: "Attendance",       label: "Attendance",         unit: "%",         min: 60, max: 100, def: 80 },
+    { key: "Previous_Scores",  label: "Previous scores",                       min: 50, max: 100, def: 75 },
+    { key: "Tutoring_Sessions",label: "Tutoring sessions",  unit: "/month",    min: 0,  max: 8,  def: 1  },
   ]},
-  { title: "Motivation & environment", fields: [
-    { key: "Motivation_Level", label: "Motivation level", options: LMH, def: "Medium" },
-    { key: "Peer_Influence", label: "Peer influence", options: ["Negative", "Neutral", "Positive"], def: "Positive" },
-    { key: "Extracurricular_Activities", label: "Extracurricular activities", options: YN, def: "Yes" },
-    { key: "Learning_Disabilities", label: "Learning disabilities", options: YN, def: "No" },
+  { title: "Health & Lifestyle", num: "B", fields: [
+    { key: "Sleep_Hours",      label: "Sleep",              unit: "hrs/night", min: 4,  max: 10, def: 7  },
+    { key: "Physical_Activity",label: "Physical activity",  unit: "hrs/week",  min: 0,  max: 6,  def: 3  },
   ]},
-  { title: "Family & home", fields: [
-    { key: "Parental_Involvement", label: "Parental involvement", options: LMH, def: "Medium" },
-    { key: "Family_Income", label: "Family income", options: LMH, def: "Low" },
-    { key: "Parental_Education_Level", label: "Parental education", options: ["High School", "College", "Postgraduate"], def: "High School", select: true },
-    { key: "Access_to_Resources", label: "Access to resources", options: LMH, def: "Medium" },
-    { key: "Internet_Access", label: "Internet access", options: YN, def: "Yes" },
-    { key: "Distance_from_Home", label: "Distance from home", options: ["Near", "Moderate", "Far"], def: "Near" },
+  { title: "Family & Environment", num: "C", fields: [
+    { key: "Parental_Involvement",    label: "Parental involvement",  options: LMH,                                         def: "Medium"      },
+    { key: "Family_Income",           label: "Family income",         options: LMH,                                         def: "Low"         },
+    { key: "Parental_Education_Level",label: "Parental education",    options: ["High School","College","Postgraduate"],     def: "High School", select: true },
+    { key: "Access_to_Resources",     label: "Access to resources",   options: LMH,                                         def: "Medium"      },
+    { key: "Internet_Access",         label: "Internet access",       options: YN,                                          def: "Yes"         },
+    { key: "Distance_from_Home",      label: "Distance from home",    options: ["Near","Moderate","Far"],                   def: "Near"        },
   ]},
-  { title: "School", fields: [
-    { key: "School_Type", label: "School type", options: ["Public", "Private"], def: "Public" },
-    { key: "Teacher_Quality", label: "Teacher quality", options: LMH, def: "Medium" },
-    { key: "Gender", label: "Gender", options: ["Male", "Female"], def: "Male" },
+  { title: "School & Personal", num: "D", fields: [
+    { key: "School_Type",               label: "School type",             options: ["Public","Private"],                    def: "Public"   },
+    { key: "Teacher_Quality",           label: "Teacher quality",         options: LMH,                                     def: "Medium"   },
+    { key: "Peer_Influence",            label: "Peer influence",          options: ["Negative","Neutral","Positive"],       def: "Positive" },
+    { key: "Motivation_Level",          label: "Motivation level",        options: LMH,                                     def: "Medium"   },
+    { key: "Extracurricular_Activities",label: "Extracurricular activities", options: YN,                                   def: "Yes"      },
+    { key: "Learning_Disabilities",     label: "Learning disabilities",   options: YN,                                      def: "No"       },
+    { key: "Gender",                    label: "Gender",                  options: ["Male","Female"],                       def: "Male"     },
   ]},
 ];
+
 const FIELDS = CARDS.flatMap(c => c.fields);
 const $ = id => document.getElementById(id);
-const esc = s => String(s).replace(/[&<>"]/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
+const esc = s => String(s).replace(/[&<>"]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch]));
 
-// ---- Render form ----
+// ── Render form ──────────────────────────────────────────────────────────────
 function fieldHTML(f) {
-  const err = `<p class="err" id="${f.key}-err"></p>`;
+  const err = `<p class="err" id="${f.key}-err" role="alert"></p>`;
   if (f.options && f.select) {
-    return `<div class="field" data-key="${f.key}"><label for="${f.key}">${f.label}</label>
-      <select id="${f.key}" aria-describedby="${f.key}-err">${f.options.map(o => `<option value="${esc(o)}">${esc(o)}</option>`).join("")}</select>${err}</div>`;
+    return `<div class="field" data-key="${f.key}">
+      <label for="${f.key}">${esc(f.label)}</label>
+      <select id="${f.key}" aria-describedby="${f.key}-err">
+        ${f.options.map(o => `<option value="${esc(o)}">${esc(o)}</option>`).join("")}
+      </select>${err}</div>`;
   }
   if (f.options) {
-    return `<fieldset class="field" data-key="${f.key}"><legend>${f.label}</legend>
-      <div class="seg" id="${f.key}" aria-describedby="${f.key}-err">${f.options.map(o =>
-        `<button type="button" data-value="${esc(o)}" aria-pressed="false">${esc(o)}</button>`).join("")}</div>${err}</fieldset>`;
+    return `<fieldset class="field" data-key="${f.key}">
+      <legend>${esc(f.label)}</legend>
+      <div class="seg" id="${f.key}" role="group" aria-describedby="${f.key}-err">
+        ${f.options.map(o => `<button type="button" data-value="${esc(o)}" aria-pressed="false">${esc(o)}</button>`).join("")}
+      </div>${err}</fieldset>`;
   }
   const unit = f.unit ? ` <span class="unit">(${f.unit})</span>` : "";
-  return `<div class="field" data-key="${f.key}"><label for="${f.key}">${f.label}${unit}</label>
+  return `<div class="field" data-key="${f.key}">
+    <label for="${f.key}">${esc(f.label)}${unit}</label>
     <div class="num-row">
-      <input type="range" id="${f.key}-range" min="${f.min}" max="${f.max}" step="1" aria-label="${f.label} slider" tabindex="-1">
-      <input type="number" id="${f.key}" min="${f.min}" max="${f.max}" step="1" inputmode="numeric" aria-describedby="${f.key}-err">
+      <input type="range" id="${f.key}-range" min="${f.min}" max="${f.max}" step="1"
+             aria-label="${esc(f.label)} slider" tabindex="-1">
+      <input type="number" id="${f.key}" min="${f.min}" max="${f.max}" step="1"
+             inputmode="numeric" aria-describedby="${f.key}-err">
     </div>${err}</div>`;
 }
-$("cards").innerHTML = CARDS.map(c =>
-  `<section class="card"><h2>${c.title}</h2><div class="grid">${c.fields.map(fieldHTML).join("")}</div></section>`).join("");
 
-// ---- Value get/set ----
+$("cards").innerHTML = CARDS.map(c =>
+  `<section class="card">
+    <h2><span class="sec-badge" aria-hidden="true">${c.num}</span>${esc(c.title)}</h2>
+    <div class="grid">${c.fields.map(fieldHTML).join("")}</div>
+  </section>`).join("");
+
+// ── Value get/set ────────────────────────────────────────────────────────────
 function setValue(f, v) {
   if (f.options && !f.select) {
-    $(f.key).querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.value === v)));
+    $(f.key).querySelectorAll("button").forEach(b =>
+      b.setAttribute("aria-pressed", String(b.dataset.value === v)));
   } else {
     $(f.key).value = v;
     if (!f.options) $(f.key + "-range").value = v;
@@ -278,7 +416,9 @@ FIELDS.forEach(f => {
       if (b) { setValue(f, b.dataset.value); clearError(f); }
     });
   } else if (!f.options) {
-    $(f.key + "-range").addEventListener("input", e => { $(f.key).value = e.target.value; clearError(f); });
+    $(f.key + "-range").addEventListener("input", e => {
+      $(f.key).value = e.target.value; clearError(f);
+    });
     $(f.key).addEventListener("input", e => {
       const n = Number(e.target.value);
       if (e.target.value !== "" && n >= f.min && n <= f.max) $(f.key + "-range").value = n;
@@ -287,16 +427,16 @@ FIELDS.forEach(f => {
   }
 });
 
-// ---- Validation ----
+// ── Validation ───────────────────────────────────────────────────────────────
 function showError(f, msg) {
   document.querySelector(`[data-key="${f.key}"]`).classList.add("invalid");
   $(f.key + "-err").textContent = msg;
-  $(f.key).setAttribute("aria-invalid", "true");
+  if ($(f.key)) $(f.key).setAttribute("aria-invalid", "true");
 }
 function clearError(f) {
   document.querySelector(`[data-key="${f.key}"]`).classList.remove("invalid");
   $(f.key + "-err").textContent = "";
-  $(f.key).removeAttribute("aria-invalid");
+  if ($(f.key)) $(f.key).removeAttribute("aria-invalid");
 }
 function validate() {
   const payload = {};
@@ -310,60 +450,80 @@ function validate() {
       else payload[f.key] = raw;
     } else {
       const n = Number(raw);
-      if (raw.trim() === "") msg = "Required.";
-      else if (!Number.isInteger(n)) msg = "Enter a whole number.";
-      else if (n < f.min || n > f.max) msg = `Must be between ${f.min} and ${f.max}.`;
+      if (raw.trim() === "")            msg = "Required.";
+      else if (!Number.isInteger(n))    msg = "Enter a whole number.";
+      else if (n < f.min || n > f.max) msg = `Must be ${f.min}–${f.max}.`;
       else payload[f.key] = n;
     }
     if (msg) { showError(f, msg); firstBad ??= f; }
   }
-  if (firstBad) { $(firstBad.key).focus?.(); return null; }
+  if (firstBad) { $(firstBad.key)?.focus(); return null; }
   return payload;
 }
 
-// ---- Result rendering ----
+// ── Result rendering ─────────────────────────────────────────────────────────
 const RING = $("ring");
 const CIRC = 2 * Math.PI * 52;
 RING.style.strokeDasharray = CIRC;
 function setRing(score) {
-  const pct = Math.max(0, Math.min(100, score)) / 100;
-  RING.style.strokeDashoffset = CIRC * (1 - pct);
+  RING.style.strokeDashoffset = CIRC * (1 - Math.max(0, Math.min(100, score)) / 100);
 }
 function clearResult() {
   $("result").classList.add("empty");
   $("score").textContent = "–";
-  $("empty-text").hidden = false;
+  $("empty-hint").hidden = false;
   $("band").hidden = true;
   $("rec").hidden = true;
+  $("xai").hidden = true;
   setRing(0);
 }
 function showResult(data) {
   const score = Number(data.predicted_exam_score);
   $("result").classList.remove("empty");
   $("score").textContent = score.toFixed(1);
-  $("empty-text").hidden = true;
+  $("empty-hint").hidden = true;
   $("band").textContent = BANDS.find(b => score >= b.min).label;
   $("band").hidden = false;
   $("tip").textContent = data.tip;
   $("rec").hidden = false;
   setRing(score);
+  renderXAI(data.explanations);
 }
 
+// ── XAI rendering ────────────────────────────────────────────────────────────
+function renderXAI(explanations) {
+  if (!explanations || !explanations.length) { $("xai").hidden = true; return; }
+  const maxAbs = Math.max(...explanations.map(e => Math.abs(e.contribution)));
+  $("xai-bars").innerHTML = explanations.map(e => {
+    const pct    = maxAbs > 0 ? (Math.abs(e.contribution) / maxAbs * 100).toFixed(1) : "0";
+    const isPos  = e.contribution >= 0;
+    const label  = e.feature.replace(/_/g, " ");
+    const val    = (isPos ? "+" : "") + e.contribution.toFixed(3);
+    const cls    = isPos ? "bar-pos" : "bar-neg";
+    return `<div class="xai-row">
+      <div class="xai-label" title="${esc(label)}">${esc(label)}</div>
+      <div class="xai-bar-wrap" aria-hidden="true">
+        <div class="xai-bar ${cls}" style="width:${pct}%"></div>
+      </div>
+      <div class="xai-val ${cls}" aria-label="${esc(val)} contribution">${esc(val)}</div>
+    </div>`;
+  }).join("");
+  $("xai").hidden = false;
+}
+
+// ── Submit ───────────────────────────────────────────────────────────────────
 function showFormError(msg) { $("form-error").textContent = msg; $("form-error").hidden = !msg; }
 function formatDetail(detail) {
-  if (Array.isArray(detail)) {
+  if (Array.isArray(detail))
     return detail.map(d => `${(d.loc || []).filter(p => p !== "body").join(".") || "request"}: ${d.msg}`).join("\n");
-  }
   return typeof detail === "string" ? detail : JSON.stringify(detail);
 }
-
 function setLoading(on) {
   $("submit").disabled = on;
   $("spinner").hidden = !on;
   $("submit-text").textContent = on ? "Predicting…" : "Predict score";
 }
 
-// ---- Submit ----
 $("form").addEventListener("submit", async e => {
   e.preventDefault();
   showFormError("");
@@ -371,15 +531,11 @@ $("form").addEventListener("submit", async e => {
   if (!payload) return;
   setLoading(true);
   try {
-    const res = await fetch("/predict", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
+    const res  = await fetch("/predict", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
     const body = await res.json().catch(() => null);
-    if (res.ok && body) showResult(body);
+    if (res.ok && body)          showResult(body);
     else if (res.status === 422) showFormError("The API rejected some values:\n" + formatDetail(body?.detail));
-    else showFormError(`Prediction failed (HTTP ${res.status}). ${body?.detail ? formatDetail(body.detail) : "The server hit an error. Try again shortly."}`);
+    else                         showFormError(`Prediction failed (HTTP ${res.status}). ${body?.detail ? formatDetail(body.detail) : "The server hit an error."}`);
   } catch {
     showFormError("Could not reach the API. Check that the server is running and try again.");
   } finally {
@@ -395,8 +551,7 @@ function resetForm() {
 $("reset").addEventListener("click", resetForm);
 resetForm();
 
-// ---- Health ----
-const STATUS = { ok: "API healthy", bad: "API offline", idle: "Checking…" };
+// ── Health poll ──────────────────────────────────────────────────────────────
 async function checkHealth() {
   let state = "bad";
   try {
@@ -404,7 +559,7 @@ async function checkHealth() {
     if (res.ok && (await res.json()).status === "healthy") state = "ok";
   } catch {}
   $("status").dataset.state = state;
-  $("status-text").textContent = STATUS[state];
+  $("status-text").textContent = state === "ok" ? "API healthy" : "API offline";
 }
 checkHealth();
 setInterval(checkHealth, 30000);
