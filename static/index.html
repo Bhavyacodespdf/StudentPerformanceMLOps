@@ -258,6 +258,7 @@
       <div class="rec" id="rec" hidden>
         <h3>Recommendation</h3>
         <p id="tip"></p>
+        <ul id="tips-list"></ul>
       </div>
       <p class="footnote">Estimate from a linear regression model, not a guaranteed exam result.</p>
     </aside>
@@ -477,17 +478,30 @@ function clearResult() {
   $("xai").hidden = true;
   setRing(0);
 }
+
 function showResult(data) {
-  const score = Number(data.predicted_exam_score);
-  $("result").classList.remove("empty");
-  $("score").textContent = score.toFixed(1);
-  $("empty-hint").hidden = true;
-  $("band").textContent = BANDS.find(b => score >= b.min).label;
-  $("band").hidden = false;
-  $("tip").textContent = data.tip;
-  $("rec").hidden = false;
-  setRing(score);
-  renderXAI(data.explanations);
+    const score = Number(data.predicted_exam_score);
+
+    $("result").classList.remove("empty");
+    $("score").textContent = score.toFixed(1);
+    $("empty-hint").hidden = true;
+    $("band").textContent = BANDS.find(b => score >= b.min).label;
+    $("band").hidden = false;
+
+    $("tip").textContent = data.tip;
+
+    const tipsList = $("tips-list");
+    tipsList.replaceChildren();
+
+    (data.tips || []).forEach(tip => {
+        const li = document.createElement("li");
+        li.textContent = tip;
+        tipsList.appendChild(li);
+    });
+
+    $("rec").hidden = false;
+    setRing(score);
+    renderXAI(data.explanations);
 }
 
 // ── XAI rendering ────────────────────────────────────────────────────────────
